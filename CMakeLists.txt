@@ -1,37 +1,20 @@
 cmake_minimum_required(VERSION 3.5.0)
 
-#### PROJECT
-project(algos LANGUAGES CXX VERSION 0.1.0)
+project(numb3r CXX)
 
-#### C++ standard == 17
 set( CMAKE_CXX_STANDARD 17 )
 set( CMAKE_CXX_STANDARD_REQUIRED ON )
-
-#### Set project structure
-set(SOURCES
-    src/numth.cpp
-)
-add_library(algos ${SOURCES})
-
-#### Add Catch 2 & CTest
-enable_testing()
+set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} ) # tells CMake to put unit_tests into bin instad of bin/test
 
 find_package(Catch2 REQUIRED)
-include(Catch)
-include(CTest)
+include(Catch) # doing the includes early, is it good practice?
+include(CTest) # needed?
 
-add_executable(unit_tests unit_tests.cpp)
+add_subdirectory(test)
+add_subdirectory(src)
 
-#### Targets & executables
-target_link_libraries(
+enable_testing()
+
+add_test( ${PROJECT_NAME}_test_all
     unit_tests
-    algos
-    Catch2::Catch2
 )
-
-add_test(test_all unit_tests)
-
-#### Dunno what this is
-set(CPACK_PROJECT_NAME ${PROJECT_NAME})
-set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
-include(CPack)

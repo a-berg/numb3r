@@ -1,10 +1,12 @@
-#define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
+#define CATCH_CONFIG_MAIN
 #include <catch2/catch.hpp>
 #include <climits>
-#include "src/numth.cpp"
+#include "basic_operations.hpp"
+#include "miller_rabin.hpp"
 
-TEST_CASE("Multiplication modulo m is robust against overflow.", "[number-theory][mulmod]") {
-    
+TEST_CASE("Multiplication modulo m is robust against overflow.",
+          "[basic-operations][mulmod]")
+{
     SECTION("32-bit ints"){
         CHECK(mulmod(ULONG_MAX-1, ULONG_MAX-1, ULONG_MAX - ( 5 - 1)) == 9);
         CHECK(mulmod(ULONG_MAX-1, ULONG_MAX-1, ULONG_MAX - (17 - 1)) == 225);
@@ -18,8 +20,9 @@ TEST_CASE("Multiplication modulo m is robust against overflow.", "[number-theory
     }
 };
 
-TEST_CASE("Power modulo m is robust against overflow.", "[number-theory][powmod]") {
-    
+TEST_CASE("Power modulo m is robust against overflow.",
+          "[basic-operations][powmod]")
+{
     SECTION("32-bit ints"){
         CHECK(powmod(ULONG_MAX-1, 3, ULONG_MAX - ( 5 - 1)) == 27);
         CHECK(powmod(ULONG_MAX-1, 3, ULONG_MAX - (17 - 1)) == 3375);
@@ -33,8 +36,9 @@ TEST_CASE("Power modulo m is robust against overflow.", "[number-theory][powmod]
     }
 };
 
-TEST_CASE( "Miller-Rabin test is performed", "[number-theory][miller-rabin]") {
-
+TEST_CASE("Miller-Rabin test is performed",
+          "[primality][miller-rabin]")
+{
     SECTION("Some very standard cases"){
         CHECK(miller_rabin_test(2,   25) == true);
         CHECK(miller_rabin_test(3,   25) == true);

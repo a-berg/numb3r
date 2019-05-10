@@ -3,3 +3,4 @@ doc/
 build/
 *.todo
 README.md
+*.org
