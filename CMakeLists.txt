@@ -10,6 +10,8 @@ find_package(Catch2 REQUIRED)
 include(Catch) # doing the includes early, is it good practice?
 include(CTest) # needed?
 
+# set( CATCH_BUILD_EXTRA_TESTS OFF)
+
 add_subdirectory(test)
 add_subdirectory(src)
 
