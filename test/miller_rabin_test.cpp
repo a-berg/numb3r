@@ -6,37 +6,31 @@ TEST_CASE("Miller-Rabin test is performed",
           "[primality][miller-rabin]")
 {
     SECTION("Some very standard cases"){
-        CHECK(miller_rabin_test(2,   25) == true);
-        CHECK(miller_rabin_test(3,   25) == true);
-        CHECK(miller_rabin_test(8,   25) == false);
-        CHECK(miller_rabin_test(17,  25) == true);
-        CHECK(miller_rabin_test(97,  25) == true);
-        CHECK(miller_rabin_test(100, 25) == false);
+        CHECK(miller_rabin_test<uint16_t>(2,   25) == true);
+        CHECK(miller_rabin_test<uint16_t>(3,   25) == true);
+        CHECK(miller_rabin_test<uint16_t>(8,   25) == false);
+        CHECK(miller_rabin_test<uint16_t>(17,  25) == true);
+        CHECK(miller_rabin_test<uint16_t>(97,  25) == true);
+        CHECK(miller_rabin_test<uint16_t>(100, 25) == false);
     }
 
     SECTION("32-bit ints"){
-        CHECK(miller_rabin_test(ULONG_MAX - (  5 - 1), 25));
-        CHECK(miller_rabin_test(ULONG_MAX - ( 17 - 1), 25));
-        CHECK(miller_rabin_test(ULONG_MAX - ( 65 - 1), 25));
-        CHECK(miller_rabin_test(ULONG_MAX - ( 99 - 1), 25));
-        CHECK(miller_rabin_test(ULONG_MAX - (107 - 1), 25));
-        CHECK(miller_rabin_test(ULONG_MAX - (135 - 1), 25));
-        CHECK(miller_rabin_test(ULONG_MAX - (153 - 1), 25));
-        CHECK(miller_rabin_test(ULONG_MAX - (185 - 1), 25));
-        CHECK(miller_rabin_test(ULONG_MAX - (209 - 1), 25));
-        CHECK(miller_rabin_test(ULONG_MAX - (267 - 1), 25));
+        std::vector<uint32_t> primeGen32 =
+            {5, 17, 65, 99, 107, 135, 153, 185, 209, 267};
+        
+        for (auto &&pgen : primeGen32)
+        {
+            CHECK(miller_rabin_test<uint32_t>(ULONG_MAX - (pgen - 1), 25));
+        }
     }
 
     SECTION("64-bit ints"){
-        CHECK(miller_rabin_test(ULLONG_MAX - ( 59 - 1), 25));
-        CHECK(miller_rabin_test(ULLONG_MAX - ( 83 - 1), 25));
-        CHECK(miller_rabin_test(ULLONG_MAX - ( 95 - 1), 25));
-        CHECK(miller_rabin_test(ULLONG_MAX - (179 - 1), 25));
-        CHECK(miller_rabin_test(ULLONG_MAX - (189 - 1), 25));
-        CHECK(miller_rabin_test(ULLONG_MAX - (257 - 1), 25));
-        CHECK(miller_rabin_test(ULLONG_MAX - (279 - 1), 25));
-        CHECK(miller_rabin_test(ULLONG_MAX - (323 - 1), 25));
-        CHECK(miller_rabin_test(ULLONG_MAX - (353 - 1), 25));
-        CHECK(miller_rabin_test(ULLONG_MAX - (363 - 1), 25));
+        std::vector<uint64_t> primeGen64 =
+            {59, 83, 95, 179, 189, 257, 279, 323, 353, 363};
+
+        for (auto &&pgen : primeGen64)
+        {
+            CHECK(miller_rabin_test<uint64_t>(ULLONG_MAX - (pgen - 1), 25));
+        }
     }
 };

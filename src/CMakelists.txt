@@ -1,11 +1,9 @@
-add_library( primality
-    primality/basic_operations.hpp
-    primality/basic_operations.cpp
-    primality/miller_rabin.hpp
-    primality/miller_rabin.cpp
+add_library( primality INTERFACE
+    # primality/basic_operations.hpp
+    # primality/miller_rabin.hpp
 )
 
 target_include_directories( primality
-    PUBLIC # Make these directories public for everyone that uses this target
+    INTERFACE # Make these directories public for everyone that uses this target
         ${CMAKE_CURRENT_SOURCE_DIR}/primality
 )

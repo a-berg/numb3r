@@ -8,7 +8,6 @@ set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} ) # tells CMake to put u
 
 find_package(Catch2 REQUIRED)
 include(Catch) # doing the includes early, is it good practice?
-include(CTest) # needed?
 
 # set( CATCH_BUILD_EXTRA_TESTS OFF)
 
