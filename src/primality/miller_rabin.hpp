@@ -12,8 +12,10 @@
 /// \param  number  The number to be tested.
 /// \param  acc     Number of rounds to be passed by the number.
 ///
-template<typename TNum>
-bool miller_rabin_test(const TNum &number, const uint64_t &acc)
+template<
+    typename TUInt,
+    typename std::enable_if_t<std::is_unsigned<TUInt>::value>* = nullptr>
+bool miller_rabin_test(const TUInt &number, const uint64_t &acc)
 {
     // initial check
     if (number == 2 || number == 3)
@@ -21,8 +23,8 @@ bool miller_rabin_test(const TNum &number, const uint64_t &acc)
     if (number % 2 == 0 || number % 3 == 0)
         return false;
     // factorise number to 2^s d
-    TNum d = number - 1;
-    TNum s = 0;
+    TUInt d = number - 1;
+    TUInt s = 0;
     while ((d & 1) == 0 && d > 0)
     {
         d >>= 1;
@@ -30,21 +32,21 @@ bool miller_rabin_test(const TNum &number, const uint64_t &acc)
     }
     // initialize distribution
     std::default_random_engine generator;
-    std::uniform_int_distribution<TNum> distribution(2, number - 2);
+    std::uniform_int_distribution<TUInt> distribution(2, number - 2);
     // actual miller-rabin here
-    TNum witness;
-    TNum x;
+    TUInt witness;
+    TUInt x;
     for (int k = 0; k < acc; ++k) // run k miller-rabin tests
     {
         // NOTE: in Z/nZ, a = -1 and n - 1 = a is the same
         witness = distribution(generator);
-        x = powmod<TNum>(witness, d, number);
+        x = powmod<TUInt>(witness, d, number);
         if (x == 1 || x == number - 1) // test passed, run next one
             continue;
 
         for (int i = 0; i < s - 1; ++i)
         {
-            x = powmod<TNum>(x, 2, number);
+            x = powmod<TUInt>(x, 2, number);
 
             if (x == 1) // test failed, n is not prime
                 return false; // break from function

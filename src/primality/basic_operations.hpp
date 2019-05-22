@@ -16,11 +16,13 @@
 /// @param   b   Second number to be multiplied.
 /// @param   m   Modulo.
 ///
-template<typename TNum>
-TNum mulmod(TNum a, TNum b, TNum m)
+template<
+    typename TUInt,
+    typename std::enable_if_t<std::is_unsigned<TUInt>::value>* = nullptr>
+TUInt mulmod(TUInt a, TUInt b, TUInt m)
 {
-    TNum res = 0;
-    TNum temp_b;
+    TUInt res = 0;
+    TUInt temp_b;
 
     b %= m;
 
@@ -52,19 +54,20 @@ TNum mulmod(TNum a, TNum b, TNum m)
 /// \par Ensures
 /// - Operations are carried out without overflow.
 /// 
-/// 
-/// \param   base        Number.
-/// \param   exponent    Number.
-/// \param   modulus     Number.
-template<typename TNum>
-TNum powmod(TNum base, TNum exponent, TNum modulus)
+/// \param   base        Unsigned Integer.
+/// \param   exponent    Unsigned Integer.
+/// \param   modulus     Unsigned Integer.
+template<
+    typename TUInt,
+    typename std::enable_if_t<std::is_unsigned<TUInt>::value>* = nullptr>
+TUInt powmod(TUInt base, TUInt exponent, TUInt modulus)
 {
-    TNum r = modulus==1?0:1;
+    TUInt r = modulus==1?0:1;
     while (exponent > 0) {
         if(exponent & 1)
-            r = mulmod<TNum>(r, base, modulus);
+            r = mulmod<TUInt>(r, base, modulus);
         exponent >>= 1;
-        base = mulmod<TNum>(base, base, modulus);
+        base = mulmod<TUInt>(base, base, modulus);
     }
     return r;
 };
