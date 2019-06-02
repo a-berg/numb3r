@@ -1,7 +1,6 @@
 #include <cstdint>
 #include <cmath>
 
-
 /// \brief Multiply two numbers modulo m (a*b mod m).
 ///
 /// Use the russian peasant algorithm to perform multiplication fast.
