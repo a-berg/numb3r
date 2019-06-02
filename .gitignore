@@ -1,6 +1,4 @@
-doc/
 .vscode/
 build/
 *.todo
 *.org
-README.md
