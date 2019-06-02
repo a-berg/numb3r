@@ -96,7 +96,7 @@ Here you will find links to the manual pages of the project.
 
 ### Other
 
-- [parallelization(7)](doc/man_pages/parallelization(7)) (draft, stub)
+- [parallelization(7)](doc/man_pages/parallelization(7).md) (draft, stub)
 
 ## Contact and contribution
 
